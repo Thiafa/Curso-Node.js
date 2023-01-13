@@ -40,30 +40,42 @@ function obterEndereco(idUsuario, callback) {
     });
   }, 3000);
 }
-main();
-// Adicionar async na função, logo retorna uma promise
-async function main() {
-  try {
-    console.time('Medida-promise');
-    const usuario = await obterUsuario();
-    // Utiliza-se quando não se necessita manipular os dados
-    const resultado = await Promise.all([
-      obterTelefone(usuario.id),
-      obterEnderecoAsync(usuario.id),
-    ]);
-    const telefone = resultado[0];
-    const endereco = resultado[1];
-    console.log(`
-    Nome: ${usuario.nome},
-    Endereço: ${endereco.rua} n°${endereco.numero} 
-    Telefone: (${telefone.ddd}) ${telefone.telefone}
-    `);
-    console.timeEnd('Medida-promise');
-  } catch (error) {
-    console.error('Error!', error);
-  }
-}
 
+const usuarioPromise = obterUsuario();
+usuarioPromise
+  .then((usuario) => {
+    return obterTelefone(usuario.id).then(function resolverTelefone(result) {
+      return {
+        usuario: {
+          nome: usuario.nome,
+          id: usuario.id,
+        },
+        telefone: result,
+      };
+    });
+  })
+  .then(function (resultado) {
+    const endereco = obterEnderecoAsync(resultado.usuario.id);
+    return endereco.then(function resolverEndereco(result) {
+      return {
+        usuario: {
+          nome: resultado.usuario.nome,
+        },
+        telefone: resultado.telefone,
+        endereco: result,
+      };
+    });
+  })
+  .then((resultado) => {
+    console.log(`
+    Nome: ${resultado.usuario.nome},
+    Endereço: ${resultado.endereco.rua} n°${resultado.endereco.numero} 
+    Telefone: (${resultado.telefone.ddd}) ${resultado.telefone.telefone}
+    `);
+  })
+  .catch((erro) => {
+    console.error('ERRO!', erro);
+  });
 // Para manipular com sucesso usa-se a função .then, para erros usa-se .catch;
 
 //  Pipe:
