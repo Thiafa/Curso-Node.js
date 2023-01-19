@@ -6,7 +6,7 @@ async function obterPessoas(nome) {
   const response = await axios.get(url);
   return response.data;
 }
-
+//
 // obterPessoas('r2')
 //   .then(function (resultado) {
 //     console.log(resultado);

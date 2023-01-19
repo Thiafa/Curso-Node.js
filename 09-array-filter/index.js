@@ -34,5 +34,6 @@ async function main() {
     console.error('ERRO INTERNO!', error);
   }
 }
+//
 
 main();
