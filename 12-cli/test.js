@@ -7,7 +7,7 @@ const DEFAULT_ITEM_CADASTRAR = {
   poder: 'Speed',
   id: 1,
 };
-
+//
 describe('Suíte de manipulação de Herois', () => {
   it('deve pesquisar um heroi, usando arquivos', async () => {
     const expected = DEFAULT_ITEM_CADASTRAR;
