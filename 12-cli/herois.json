@@ -1,12 +1,6 @@
 [
-  {
-    "nome": "Flash",
-    "poder": "Speed",
-    "id": 1
-  },
-  {
-    "nome": "Batman",
-    "poder": "Agility",
-    "id": 2
-  }
+  {},
+  { "id": 1, "nome": "Flash", "poder": "Speed" },
+  { "id": 1, "nome": "Flash", "poder": "Speed" },
+  { "nome": "Batman", "poder": "Agility", "id": 2 }
 ]
