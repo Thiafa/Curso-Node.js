@@ -32,8 +32,10 @@ class Database {
   }
   async listar(id) {
     const dados = await this.obterDadosArquivos();
-    const dadosFitlrados = dados.filter((item) => (id ? item.id === id : true));
-    return dadosFitlrados;
+
+    const dadosFiltrados = dados.filter((item) => (id ? item.id === id : true));
+
+    return dadosFiltrados;
   }
   async remover(id) {
     if (!id) {
@@ -41,7 +43,6 @@ class Database {
       return true;
     }
     const dados = await this.obterDadosArquivos();
-    console.log(id);
     const indice = dados.findIndex((item) => item.id === parseInt(id));
     if (indice === -1) {
       throw Error('O usuário informado não existe');
@@ -49,6 +50,24 @@ class Database {
     const atual = dados[indice];
     dados.splice(indice, 1);
     return await this.escreverArquivo(dados);
+  }
+  async atualizar(id, modificacoes) {
+    const dados = await this.obterDadosArquivos();
+
+    const indice = dados.findIndex((item) => item.id === parseInt(id));
+    if (indice === -1) {
+      throw Error('o heroi informado não existe');
+    }
+    const atual = dados[indice];
+
+    const objAtualizar = {
+      ...atual,
+      ...modificacoes,
+    };
+
+    dados.splice(indice, 1);
+
+    return await this.escreverArquivo([...dados, objAtualizar]);
   }
 }
 
