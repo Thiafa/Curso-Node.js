@@ -19,7 +19,7 @@ class Database {
     );
     return true;
   }
-  async cadastrarHeroi(heroi) {
+  async cadastrar(heroi) {
     const dados = await this.obterDadosArquivos();
     const id = heroi.id <= 2 ? heroi.id : Date.now();
     const heroiComId = {
@@ -28,6 +28,7 @@ class Database {
     };
     const dadosFinal = [...dados, heroiComId];
     const resultado = await this.escreverArquivo(dadosFinal);
+
     return resultado;
   }
   async listar(id) {

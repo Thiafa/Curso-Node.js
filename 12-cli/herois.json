@@ -1,4 +1,5 @@
 [
   { "nome": "Flash", "poder": "Speed", "id": 1 },
-  { "nome": "Batman", "poder": "Dinheiro", "id": 2 }
+  { "nome": "Batman", "poder": "Dinheiro", "id": 2 },
+  { "nome": "Aquaman", "poder": "Nadar", "id": 1676058288631 }
 ]
